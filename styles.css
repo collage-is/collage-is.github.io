@@ -6,25 +6,26 @@ html {
 }
 
 body {
-    margin: 10px;
-    padding: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
+    /* Remove default browser margins so fixed elements can sit flush with viewport edges */
+    margin: 0;
     /* background-color: salmon; */
 }
 
-header {
+#main, ul {
     font-family: "EB Garamond", serif;
+}
+
+#main {
     display: flex;
     flex-direction: column;
     align-items: center;
     /* background-color: rgb(0, 128, 0); */
-    width: 100%;
-    max-width: 600px;
-    po
+    padding-right: 250px; /* Make space for the sidebar */  
 }
 
 h1 {
@@ -36,30 +37,202 @@ h1 {
     padding: 0;
 }
 
-p {
+#main p {
     /* background-color: aquamarine; */
-    padding: 10px;
+    padding: 60px;
+    max-width: 600px;
+    position: relative;
+
 }
 
-#filigree {
+/* #filigree {
     width: 6em;
     height: 3em;
     background-image: url(static/filigree_1.png);
     background-size: cover;
     background-position: center;
-    /* background-color: blue; */
     cursor: pointer;
 }
 
 #filigree:hover {
     background-image: url(static/filigree_2.png);
+} */
+
+#heart_1, #heart_2 {
+    width: 3em;
+    height: 3em;
+    background-image: url(static/bleeding_heart.png);
+    background-size: cover;
+    background-position: center;
+}
+
+#heart_1, #heart_2 {
+    position: absolute;
+    bottom: 20px;
+    mix-blend-mode: multiply;
+}
+
+#heart_1 {
+    left: 20px;
+}
+
+#heart_2 {
+    right: calc(250px + 20px);
+    transform: scaleX(-1);
 }
 
 #spot {
+    display: none;
     height: 6px;
     width: 6px;
     background-color: black;
     border-radius: 4px;
     position: absolute;
     cursor: pointer;
+}
+
+#side {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100vh;
+    width: 250px;
+    background-image: linear-gradient(to bottom, #000000 40%, rgba(255, 255, 255, 0) 0%);
+    background-position: left;
+    background-size: 1.5px 30px;
+    background-repeat: repeat-y;
+}
+
+#side nav {
+    padding: 35px;
+}
+
+nav article:first-child {
+    margin-bottom: 20vh;
+}
+
+h2, #mail {
+    font-family: "Roboto Mono", monospace;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    text-transform: uppercase;
+    font-size: 1em;
+    margin: 0;
+}
+
+#mail {
+    position: fixed;
+    bottom: 30px;
+    opacity: 40%;
+}
+
+#mail a {
+    text-decoration: none;
+    color: inherit;
+}
+
+#mail:hover {
+    opacity: 100%;
+    cursor: pointer;
+}
+
+#mail:hover #arrow {
+    margin-left: 5px;
+    transition: margin-left 0.3s ease;
+}
+
+#side h2 {
+    /* background-color: rgb(255, 109, 109); */
+    border-bottom: 1px solid black;
+    padding-bottom: 10px;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    margin-top: 20px;
+}
+
+/* Modal styles */
+#modal-backdrop {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+}
+
+#modal-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 40px;
+    border-radius: 8px;
+    z-index: 101;
+    max-width: 90vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#modal-close:hover {
+    opacity: 0.7;
+}
+
+#modal-popup.active,
+#modal-backdrop.active {
+    display: block;
+}
+
+#main p {
+    cursor: pointer;
+}
+
+#main p:hover {
+    opacity: 0.8;
+}
+
+/* Hide the sidebar on narrow viewports (mobile).
+   Adjust the breakpoint (600px) if you prefer a different cutoff. */
+@media (max-width: 650px) {
+    #side {
+        display: none;
+    }
+
+    /* When the sidebar is hidden, ensure the main content doesn't leave extra space
+       on the right. This keeps content centered for small screens. */
+    #main {
+        padding-right: 0;
+    }
+
+    #heart_2 {
+    right: 20px;
+    transform: scaleX(-1);
+    }
 }
